@@ -7,18 +7,11 @@ const kineticEchoes = {
   tags: ["Performance", "Sound"],
   shortDescription: "Placeholder entry. Content will be added in the next update.",
   about: ["Project content coming soon."],
-  versions: [
+  modules: [
     {
-      id: "kinetic-echoes-v1",
-      title: "Draft",
-      year: "2024",
-      summary: "Placeholder material for upcoming updates.",
-      notes: ["Add text, gallery, and videos when documentation is ready."],
-      media: {
-        videos: [],
-        youtube: []
-      },
-      gallery: []
+      id: "kinetic-echoes-text-01",
+      type: "text",
+      paragraphs: ["Add text, gallery, and videos when documentation is ready."]
     }
   ]
 };

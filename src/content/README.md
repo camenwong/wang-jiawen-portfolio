@@ -22,16 +22,21 @@ Open the matching file in `projects/` and edit:
 
 - `title`, `year`, `shortDescription`, `tags`
 - `about` (project-level intro paragraphs)
-- `versions` (each version/phase of that project)
+- `exhibitedAt` and `performance` (optional lists shown under tags)
+- `modules` (ordered content blocks on the project page)
 
-Each version supports its own:
+Supported `modules` types:
 
-- `title`, `year`, `summary`
-- `notes` (paragraph array)
-- `heroImage`
-- `media.videos` (`[{ src, caption }]`)
-- `media.youtube` (`[{ youtubeId, caption }]`)
-- `gallery` (image path array)
+- `text`: `{ type: "text", paragraphs: ["..."] }`
+- `image`: `{ type: "image", src: "/media/...", alt: "..." }`
+- `video`: `{ type: "video", src: "/media/...", caption: "...", isReel: true }`
+- `youtube`: `{ type: "youtube", youtubeId: "...", caption: "..." }`
+- `gallery`: `{ type: "gallery", images: ["/media/...", ...] }`
+
+Notes:
+
+- Reel videos with `isReel: true` autoplay, loop, and start muted.
+- The first reel module is shown next to the main `about` text on desktop.
 
 ## Add a new project
 
@@ -51,20 +56,26 @@ const newProject = {
   tags: ["Installation"],
   shortDescription: "One-line project description.",
   coverImage: "/media/new-project/cover.jpg",
+  exhibitedAt: ["Exhibition name, 2026"],
+  performance: ["Performance name, 2026"],
   about: ["Project intro paragraph."],
-  versions: [
+  modules: [
     {
-      id: "new-project-v1",
-      title: "Working Title",
-      year: "2026",
-      summary: "Short summary for this version.",
-      notes: ["Notes paragraph one.", "Notes paragraph two."],
-      heroImage: "/media/new-project/hero.jpg",
-      media: {
-        videos: [{ src: "/media/new-project/reel.mp4", caption: "Project reel" }],
-        youtube: [{ youtubeId: "M7lc1UVf-VE", caption: "Documentation" }]
-      },
-      gallery: ["/media/new-project/01.jpg", "/media/new-project/02.jpg"]
+      id: "new-project-reel",
+      type: "video",
+      src: "/media/new-project/reel.mp4",
+      caption: "Project reel",
+      isReel: true
+    },
+    {
+      id: "new-project-text-01",
+      type: "text",
+      paragraphs: ["Notes paragraph one.", "Notes paragraph two."]
+    },
+    {
+      id: "new-project-gallery-01",
+      type: "gallery",
+      images: ["/media/new-project/01.jpg", "/media/new-project/02.jpg"]
     }
   ]
 };

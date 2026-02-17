@@ -235,6 +235,67 @@ function AboutPage() {
   );
 }
 
+function getProjectModules(project) {
+  if ((project.modules ?? []).length > 0) {
+    return project.modules;
+  }
+
+  return (project.versions ?? []).flatMap((version, versionIndex) => {
+    const versionId = version.id ?? `${project.slug}-legacy-${versionIndex}`;
+    const mappedModules = [];
+    const summaryAndNotes = [version.summary, ...(version.notes ?? [])].filter(Boolean);
+    const videos = version.media?.videos ?? [];
+    const youtubeEmbeds = version.media?.youtube ?? [];
+    const gallery = version.gallery ?? [];
+
+    if (version.heroImage) {
+      mappedModules.push({
+        id: `${versionId}-image`,
+        type: "image",
+        src: version.heroImage,
+        alt: `${project.title} image`
+      });
+    }
+
+    if (summaryAndNotes.length > 0) {
+      mappedModules.push({
+        id: `${versionId}-text`,
+        type: "text",
+        paragraphs: summaryAndNotes
+      });
+    }
+
+    videos.forEach((video, videoIndex) => {
+      mappedModules.push({
+        id: `${versionId}-video-${videoIndex}`,
+        type: "video",
+        src: video.src,
+        caption: video.caption,
+        isReel: video.isReel
+      });
+    });
+
+    youtubeEmbeds.forEach((youtube, youtubeIndex) => {
+      mappedModules.push({
+        id: `${versionId}-youtube-${youtubeIndex}`,
+        type: "youtube",
+        youtubeId: youtube.youtubeId,
+        caption: youtube.caption
+      });
+    });
+
+    if (gallery.length > 0) {
+      mappedModules.push({
+        id: `${versionId}-gallery`,
+        type: "gallery",
+        images: gallery
+      });
+    }
+
+    return mappedModules;
+  });
+}
+
 function ProjectPage() {
   const { slug } = useParams();
   const project = projects.find((item) => item.slug === slug);
@@ -253,6 +314,12 @@ function ProjectPage() {
     );
   }
 
+  const modules = getProjectModules(project);
+  const introReelModuleIndex = modules.findIndex((module) => module.type === "video" && module.isReel);
+  const introReel = introReelModuleIndex >= 0 ? modules[introReelModuleIndex] : null;
+  const contentModules =
+    introReelModuleIndex >= 0 ? modules.filter((_, index) => index !== introReelModuleIndex) : modules;
+
   return (
     <article className="project-page-panel">
       <header className="project-hero">
@@ -262,108 +329,142 @@ function ProjectPage() {
           <p className="project-year">{project.year}</p>
         </div>
 
-        <ul className="project-tag-cloud">
-          {project.tags.map((tag) => (
-            <li key={`${project.slug}-tag-${tag}`}>{tag}</li>
-          ))}
-        </ul>
+        <div className="project-meta-column">
+          <ul className="project-tag-cloud">
+            {project.tags.map((tag) => (
+              <li key={`${project.slug}-tag-${tag}`}>{tag}</li>
+            ))}
+          </ul>
+
+          <div className="project-specs">
+            {project.exhibitedAt && project.exhibitedAt.length > 0 && (
+              <div className="spec-group">
+                <span className="spec-label">Exhibition</span>
+                <ul>
+                  {project.exhibitedAt.map((item) => (
+                    <li key={`${project.slug}-exhibition-${item}`}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {project.performance && project.performance.length > 0 && (
+              <div className="spec-group">
+                <span className="spec-label">Performance</span>
+                <ul>
+                  {project.performance.map((item) => (
+                    <li key={`${project.slug}-performance-${item}`}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        </div>
       </header>
 
-      <section className="project-text-block">
-        {(project.about ?? []).map((paragraph, index) => (
-          <p key={`${project.slug}-about-${index}`}>{paragraph}</p>
-        ))}
+      <section className={`project-intro-grid ${introReel ? "has-reel" : ""}`}>
+        <div className="project-text-block">
+          {(project.about ?? []).map((paragraph, index) => (
+            <p key={`${project.slug}-about-${index}`}>{paragraph}</p>
+          ))}
+        </div>
+
+        {introReel ? (
+          <figure className="media-card is-reel project-intro-reel">
+            <video
+              src={introReel.src}
+              controls
+              playsInline
+              preload="metadata"
+              autoPlay
+              loop
+              muted
+            />
+            {introReel.caption ? <figcaption>{introReel.caption}</figcaption> : null}
+          </figure>
+        ) : null}
       </section>
 
-      <section className="project-versions">
-
-        {(project.versions ?? []).length === 0 ? (
+      <section className="project-modules">
+        {contentModules.length === 0 ? (
           <p className="empty-state">No content has been added yet.</p>
         ) : (
-          (project.versions ?? []).map((version, versionIndex) => {
-            const versionNumber = String(versionIndex + 1).padStart(2, "0");
-            const videos = version.media?.videos ?? [];
-            const youtubeEmbeds = version.media?.youtube ?? [];
-            const gallery = version.gallery ?? [];
-            const hasMedia = videos.length > 0 || youtubeEmbeds.length > 0;
+          contentModules.map((module, moduleIndex) => {
+            const key = module.id ?? `${project.slug}-module-${moduleIndex}`;
 
-            return (
-              <section className="version-panel" key={version.id ?? `${project.slug}-${versionIndex}`}>
-                <header className="version-header">
-                  <p className="version-code">[{versionNumber}]</p>
-                  <h4>{version.title}</h4>
-                  {version.year ? <p className="version-year">{version.year}</p> : null}
-                </header>
-
-                {version.summary ? <p className="version-summary">{version.summary}</p> : null}
-
-                {version.heroImage ? (
-                  <figure className="project-hero-image">
-                    <img src={version.heroImage} alt={`${project.title} ${version.title} hero`} loading="lazy" />
-                  </figure>
-                ) : null}
-
-                {(version.notes ?? []).length > 0 ? (
-                  <div className="project-text-block">
-                    {(version.notes ?? []).map((paragraph, noteIndex) => (
-                      <p key={`${version.id ?? versionIndex}-note-${noteIndex}`}>{paragraph}</p>
+            if (module.type === "text") {
+              return (
+                <section className="project-module" key={key}>
+                  <div className="project-text-block project-module-text">
+                    {(module.paragraphs ?? []).map((paragraph, paragraphIndex) => (
+                      <p key={`${key}-paragraph-${paragraphIndex}`}>{paragraph}</p>
                     ))}
                   </div>
-                ) : null}
-
-                {hasMedia ? (
-                  <div className="project-media-stack">
-                    {videos.map((video, videoIndex) => (
-                      <figure
-                        className={`media-card ${video.isReel ? "is-reel" : ""}`}
-                        key={`${version.id ?? versionIndex}-video-${videoIndex}`}
-                      >
-                        <video src={video.src} controls playsInline preload="metadata" />
-                        {video.caption ? <figcaption>{video.caption}</figcaption> : null}
-                      </figure>
-                    ))}
-
-                    {youtubeEmbeds.map((item, youtubeIndex) => (
-                      <figure className="media-card" key={`${version.id ?? versionIndex}-youtube-${youtubeIndex}`}>
-                        <div className="iframe-wrap">
-                          <iframe
-                            src={`https://www.youtube.com/embed/${item.youtubeId}`}
-                            title={`${project.title} ${version.title} YouTube embed`}
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            referrerPolicy="strict-origin-when-cross-origin"
-                            allowFullScreen
-                          />
-                        </div>
-                        {item.caption ? <figcaption>{item.caption}</figcaption> : null}
-                      </figure>
-                    ))}
-                  </div>
-                ) : null}
-
-                <section className="gallery-panel">
-                  {gallery.length > 0 ? (
-                    <div className="gallery-grid">
-                      {gallery.map((image, imageIndex) => (
-                        <button
-                          key={`${version.id ?? versionIndex}-gallery-${imageIndex}`}
-                          type="button"
-                          className="gallery-thumb"
-                          onClick={() => setSelectedImage(image)}
-                        >
-                          <img
-                            src={image}
-                            alt={`${project.title} ${version.title} image ${imageIndex + 1}`}
-                            loading="lazy"
-                          />
-                        </button>
-                      ))}
-                    </div>
-                  ) : (
-                    <p className="empty-state">Image set will be added soon.</p>
-                  )}
                 </section>
-              </section>
-            );
+              );
+            }
+
+            if (module.type === "image" && module.src) {
+              return (
+                <figure className="project-module project-hero-image" key={key}>
+                  <img src={module.src} alt={module.alt ?? `${project.title} image`} loading="lazy" />
+                </figure>
+              );
+            }
+
+            if (module.type === "video" && module.src) {
+              return (
+                <figure className={`media-card ${module.isReel ? "is-reel" : ""}`} key={key}>
+                  <video
+                    src={module.src}
+                    controls
+                    playsInline
+                    preload="metadata"
+                    autoPlay={module.isReel}
+                    loop={module.isReel}
+                    muted={module.isReel}
+                  />
+                  {module.caption ? <figcaption>{module.caption}</figcaption> : null}
+                </figure>
+              );
+            }
+
+            if (module.type === "youtube" && module.youtubeId) {
+              return (
+                <figure className="media-card" key={key}>
+                  <div className="iframe-wrap">
+                    <iframe
+                      src={`https://www.youtube.com/embed/${module.youtubeId}`}
+                      title={`${project.title} YouTube embed`}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      referrerPolicy="strict-origin-when-cross-origin"
+                      allowFullScreen
+                    />
+                  </div>
+                  {module.caption ? <figcaption>{module.caption}</figcaption> : null}
+                </figure>
+              );
+            }
+
+            if (module.type === "gallery") {
+              return (
+                <section className="project-module" key={key}>
+                  <div className="gallery-grid">
+                    {(module.images ?? []).map((image, imageIndex) => (
+                      <button
+                        key={`${key}-gallery-${imageIndex}`}
+                        type="button"
+                        className="gallery-thumb"
+                        onClick={() => setSelectedImage(image)}
+                      >
+                        <img src={image} alt={`${project.title} image ${imageIndex + 1}`} loading="lazy" />
+                      </button>
+                    ))}
+                  </div>
+                </section>
+              );
+            }
+
+            return null;
           })
         )}
       </section>

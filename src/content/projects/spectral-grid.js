@@ -7,18 +7,11 @@ const spectralGrid = {
   tags: ["Installation", "Research"],
   shortDescription: "Placeholder entry. Content will be added in the next update.",
   about: ["Project content coming soon."],
-  versions: [
+  modules: [
     {
-      id: "spectral-grid-v1",
-      title: "Draft",
-      year: "2022",
-      summary: "Placeholder material for upcoming updates.",
-      notes: ["Add text, gallery, and videos when documentation is ready."],
-      media: {
-        videos: [],
-        youtube: []
-      },
-      gallery: []
+      id: "spectral-grid-text-01",
+      type: "text",
+      paragraphs: ["Add text, gallery, and videos when documentation is ready."]
     }
   ]
 };
