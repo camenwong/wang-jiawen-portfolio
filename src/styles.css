@@ -1,13 +1,13 @@
 :root {
   color-scheme: dark;
-  --bg: #0b0b0b;
-  --bg-soft: #131313;
+  --bg: #071213;
+  --bg-soft: #0d1c1e;
   --paper: #f2eee7;
   --text: #f8f4ee;
   --muted: #b9b2a8;
   --line: rgba(255, 255, 255, 0.14);
-  --accent: #d95f2b;
-  --accent-soft: rgba(217, 95, 43, 0.18);
+  --accent: #2c8a83;
+  --accent-soft: rgba(44, 138, 131, 0.2);
   --radius: 18px;
   --sidebar-width: 312px;
   --font-body: "Instrument Sans", "Avenir Next", "Helvetica Neue", sans-serif;
@@ -28,7 +28,7 @@ body,
 body {
   font-family: var(--font-body);
   background:
-    radial-gradient(circle at 5% 4%, rgba(217, 95, 43, 0.25), transparent 30%),
+    radial-gradient(circle at 5% 4%, rgba(44, 138, 131, 0.28), transparent 30%),
     radial-gradient(circle at 93% 12%, rgba(255, 255, 255, 0.08), transparent 28%),
     var(--bg);
   color: var(--text);
@@ -366,7 +366,7 @@ a {
 
 .project-placeholder {
   background:
-    linear-gradient(130deg, rgba(217, 95, 43, 0.35), rgba(217, 95, 43, 0.08) 45%, rgba(255, 255, 255, 0.08)),
+    linear-gradient(130deg, rgba(44, 138, 131, 0.36), rgba(44, 138, 131, 0.1) 45%, rgba(255, 255, 255, 0.08)),
     linear-gradient(210deg, #1a1a1a, #0e0e0e);
 }
 
@@ -536,6 +536,19 @@ a {
   font-size: clamp(1.8rem, 5vw, 3.7rem);
   line-height: 0.95;
   letter-spacing: -0.03em;
+}
+
+.project-hero-main {
+  display: grid;
+  gap: 0.38rem;
+  max-width: min(62ch, 100%);
+}
+
+.project-short-description {
+  margin: 0.3rem 0 0;
+  color: var(--muted);
+  line-height: 1.5;
+  font-size: 0.96rem;
 }
 
 .project-tag-cloud {

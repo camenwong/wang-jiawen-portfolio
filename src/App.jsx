@@ -323,10 +323,13 @@ function ProjectPage() {
   return (
     <article className="project-page-panel">
       <header className="project-hero">
-        <div>
+        <div className="project-hero-main">
           <p className="project-code">[{project.number}]</p>
           <h2>{project.title}</h2>
           <p className="project-year">{project.year}</p>
+          {project.shortDescription ? (
+            <p className="project-short-description">{project.shortDescription}</p>
+          ) : null}
         </div>
 
         <div className="project-meta-column">
