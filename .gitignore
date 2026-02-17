@@ -3,3 +3,26 @@ Thumbs.db
 node_modules/
 dist/
 .vite/
+
+# Logs
+*.log
+.dev.log
+
+# Local env files
+.env
+.env.local
+.env.*.local
+
+# OS files
+.AppleDouble
+.LSOverride
+
+# Build/Artifacts
+.parcel-cache
+.eslintcache
+
+# Debug/Temporary files
+*_screenshot.png
+verified_screenshot.png
+debug_screenshot.png
+final_fix_screenshot.png
