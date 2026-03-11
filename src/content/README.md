@@ -55,7 +55,7 @@ const newProject = {
   status: "published",
   tags: ["Installation"],
   shortDescription: "One-line project description.",
-  coverImage: "/media/new-project/cover.jpg",
+  coverImage: "/media/new-project/cover.jpg", // also supports .gif, .mp4
   exhibitedAt: ["Exhibition name, 2026"],
   performance: ["Performance name, 2026"],
   about: ["Project intro paragraph."],
@@ -75,7 +75,7 @@ const newProject = {
     {
       id: "new-project-gallery-01",
       type: "gallery",
-      images: ["/media/new-project/01.jpg", "/media/new-project/02.jpg"]
+      images: ["/media/new-project/01.jpg", "/media/new-project/02.jpg"] // gifs supported
     }
   ]
 };
