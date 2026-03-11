@@ -154,18 +154,6 @@ const COVER_VIDEO_EXTENSIONS = [".mp4", ".webm", ".ogg"];
 const isVideoAsset = (src) =>
   typeof src === "string" && COVER_VIDEO_EXTENSIONS.some((ext) => src.toLowerCase().endsWith(ext));
 
-const getPosterImage = (modulePoster, fallbackImage) => {
-  if (modulePoster) {
-    return modulePoster;
-  }
-
-  if (fallbackImage && !isVideoAsset(fallbackImage)) {
-    return fallbackImage;
-  }
-
-  return undefined;
-};
-
 const attemptAutoplay = (videoElement, shouldPlay) => {
   if (!videoElement || !shouldPlay) {
     return;
@@ -414,7 +402,6 @@ function ProjectPage() {
           <figure className="media-card is-reel project-intro-reel">
             <video
               src={introReel.src}
-              poster={getPosterImage(introReel.poster, project.coverImage)}
               controls
               playsInline
               preload="metadata"
@@ -461,7 +448,6 @@ function ProjectPage() {
                 <figure className={`media-card ${module.isReel ? "is-reel" : ""}`} key={key}>
                   <video
                     src={module.src}
-                    poster={getPosterImage(module.poster, project.coverImage)}
                     controls
                     playsInline
                     preload="metadata"
