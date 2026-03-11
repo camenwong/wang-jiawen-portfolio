@@ -7,7 +7,7 @@ const abyssialMimesis = {
   tags: ["Installation", "Audiovisual", "Performance", "Generative"],
   shortDescription:
     "A generative immersive audiovisual installation exploring deep-sea imaginary probabilities through the interplay of digital subconscious.",
-  coverImage: "/media/abyssial/hero-01.png",
+  coverImage: "/media/abyssial/Reels-Announce-Small.mp4",
   exhibitedAt: [
     "Medienhaus UdK Berlin, 2025",
     "UdK Award Nomination Exhibition, 2025"
