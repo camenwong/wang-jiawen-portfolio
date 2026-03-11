@@ -21,7 +21,8 @@ export const siteMeta = {
     },
     {
       label: "Email",
-      href: "mailto:mail@wang-jiawen.com"
+      href: "mailto:camenwangjiawen@gmail.com"
     }
   ]
+
 };
