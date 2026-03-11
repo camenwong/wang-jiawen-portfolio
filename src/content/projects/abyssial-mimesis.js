@@ -20,7 +20,7 @@ const abyssialMimesis = {
   ],
   modules: [
     {
-      id: "abyssial-reel",
+      id: "abyssial-reel-01",
       type: "video",
       src: "/media/abyssial/reel.mp4",
       caption: "Project reel",
@@ -40,6 +40,12 @@ const abyssialMimesis = {
     {
       id: "abyssial-image-01",
       type: "image",
+      src: "/media/abyssial/hero-01.png",
+      alt: "Abyssial Mimesis documentation still"
+    },
+    {
+      id: "abyssial-image-02",
+      type: "image",
       src: "/media/abyssial/hero-02.png",
       alt: "Abyssial Mimesis documentation still"
     },
@@ -52,8 +58,64 @@ const abyssialMimesis = {
         "/media/abyssial/gallery-03.jpg",
         "/media/abyssial/gallery-04.jpg",
         "/media/abyssial/gallery-05.jpg",
-        "/media/abyssial/gallery-06.png"
+        "/media/abyssial/gallery-7.png",
+        "/media/abyssial/gallery-14.jpg",
+        "/media/abyssial/gallery-16.jpg",
+        "/media/abyssial/gallery-10.jpg"
       ]
+    },
+    {
+      id: "abyssial-reel-03",
+      type: "video",
+      src: "/media/abyssial/Reels-Announce-Monopol.mp4",
+      caption: "Project reel",
+      isReel: true
+    },
+    {
+      id: "abyssial-text-02",
+      type: "text",
+      paragraphs: [
+        "Audiovisual Performance version"]
+    },
+    {
+      id: "abyssial-reel-02",
+      type: "video",
+      src: "/media/abyssial/Reels-Announce-Beats.mp4",
+      caption: "Project reel",
+      isReel: true
+    },
+    {
+      id: "abyssial-gallery-02",
+      type: "gallery",
+      images: [
+        "/media/abyssial/gallery-06.png",
+        "/media/abyssial/gallery-9.png"
+      ]
+    },
+    {
+      id: "abyssial-text-03",
+      type: "text",
+      paragraphs: [
+        "UdK Award Nomination Exhibition, 2025"]
+    },
+    {
+      id: "abyssial-gallery-03",
+      type: "gallery",
+      images: [
+        "/media/abyssial/gallery-11.jpg",
+        "/media/abyssial/gallery-12.jpg",
+        "/media/abyssial/gallery-13.jpg",
+        "/media/abyssial/gallery-17.jpg",
+        "/media/abyssial/gallery-18.jpg",
+        "/media/abyssial/gallery-19.jpg"
+      ]
+    },
+    {
+      id: "abyssial-reel-04",
+      type: "video",
+      src: "/media/abyssial/Reels-Announce-Sketch.mp4",
+      caption: "Project reel",
+      isReel: true
     },
     {
       id: "abyssial-youtube-01",
