@@ -67,7 +67,7 @@ a {
   height: 100vh;
   height: 100svh;
   overflow: hidden;
-  border-right: 1px solid var(--line);
+  border-right: none;
   background: rgba(11, 11, 11, 0.94);
   backdrop-filter: blur(14px);
   display: grid;
@@ -151,7 +151,7 @@ a {
 
 .filter-panel {
   padding: 0.5rem 1rem 0.75rem;
-  border-top: 1px solid var(--line);
+  border-top: none;
 }
 
 .filter-panel-title-row {
@@ -204,7 +204,7 @@ a {
 }
 
 .project-menu {
-  border-top: 1px solid var(--line);
+  border-top: none;
   padding: 0.75rem 1rem 1rem;
   min-height: 0;
   overflow-y: auto;
@@ -248,7 +248,7 @@ a {
 }
 
 .sidebar-social {
-  border-top: 1px solid var(--line);
+  border-top: none;
   padding: 0.8rem 1rem 1rem;
   display: grid;
   gap: 0.5rem;
@@ -281,9 +281,9 @@ a {
 .overview-panel,
 .project-page-panel,
 .about-page-panel {
-  border: 1px solid var(--line);
+  border: none;
   border-radius: var(--radius);
-  background: linear-gradient(165deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+  background: none;
 }
 
 .hero-panel {
@@ -297,7 +297,7 @@ a {
   inset: 0;
   background-image: radial-gradient(rgba(255, 255, 255, 0.11) 1px, transparent 1px);
   background-size: 7px 7px;
-  opacity: 0.1;
+  opacity: 0;
   pointer-events: none;
 }
 
@@ -346,8 +346,8 @@ a {
 .project-tile {
   border-radius: 14px;
   overflow: hidden;
-  background: rgba(10, 10, 10, 0.7);
-  border: 1px solid var(--line);
+  background: none;
+  border: none;
 }
 
 .project-tile a {
@@ -427,7 +427,7 @@ a {
 }
 
 .about-header {
-  border-bottom: 1px solid var(--line);
+  border-bottom: none;
   padding-bottom: 1rem;
 }
 
@@ -462,9 +462,9 @@ a {
 }
 
 .about-contact-block {
-  border: 1px solid var(--line);
+  border: none;
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.02);
+  background: none;
   padding: 0.9rem;
 }
 
@@ -495,10 +495,10 @@ a {
 }
 
 .project-module {
-  border: 1px solid var(--line);
+  border: none;
   border-radius: 14px;
   padding: clamp(0.85rem, 2vw, 1.2rem);
-  background: rgba(255, 255, 255, 0.02);
+  background: none;
 }
 
 .project-module-text {
@@ -510,7 +510,7 @@ a {
   justify-content: space-between;
   gap: 1.25rem;
   align-items: flex-start;
-  border-bottom: 1px solid var(--line);
+  border-bottom: none;
   padding-bottom: 1rem;
 }
 
@@ -620,7 +620,7 @@ a {
 .project-hero-image img {
   width: 100%;
   border-radius: 14px;
-  border: 1px solid var(--line);
+  border: none;
   max-height: min(70vh, 720px);
   object-fit: cover;
 }
@@ -666,8 +666,8 @@ a {
 .media-card {
   margin: 0;
   border-radius: 12px;
-  border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.02);
+  border: none;
+  background: none;
   overflow: hidden;
 }
 
@@ -710,14 +710,14 @@ a {
 
 .media-card figcaption {
   padding: 0.55rem 0.72rem;
-  border-top: 1px solid var(--line);
+  border-top: none;
   color: var(--muted);
   font-size: 0.8rem;
 }
 
 .gallery-panel {
   margin-top: 1rem;
-  border-top: 1px solid var(--line);
+  border-top: none;
   padding-top: 1rem;
 }
 
@@ -734,7 +734,7 @@ a {
 }
 
 .gallery-thumb {
-  border: 1px solid var(--line);
+  border: none;
   border-radius: 10px;
   padding: 0;
   background: transparent;
@@ -763,7 +763,7 @@ a {
   max-width: min(94vw, 1320px);
   max-height: 84vh;
   object-fit: contain;
-  border: 1px solid var(--line);
+  border: none;
 }
 
 .lightbox-close {
