@@ -154,6 +154,29 @@ const COVER_VIDEO_EXTENSIONS = [".mp4", ".webm", ".ogg"];
 const isVideoAsset = (src) =>
   typeof src === "string" && COVER_VIDEO_EXTENSIONS.some((ext) => src.toLowerCase().endsWith(ext));
 
+const getPosterImage = (modulePoster, fallbackImage) => {
+  if (modulePoster) {
+    return modulePoster;
+  }
+
+  if (fallbackImage && !isVideoAsset(fallbackImage)) {
+    return fallbackImage;
+  }
+
+  return undefined;
+};
+
+const attemptAutoplay = (videoElement, shouldPlay) => {
+  if (!videoElement || !shouldPlay) {
+    return;
+  }
+
+  const playPromise = videoElement.play();
+  if (playPromise && typeof playPromise.catch === "function") {
+    playPromise.catch(() => null);
+  }
+};
+
 function HomePage({ projects }) {
   return (
     <>
@@ -391,12 +414,15 @@ function ProjectPage() {
           <figure className="media-card is-reel project-intro-reel">
             <video
               src={introReel.src}
+              poster={getPosterImage(introReel.poster, project.coverImage)}
               controls
               playsInline
               preload="metadata"
               autoPlay
               loop
               muted
+              ref={(element) => attemptAutoplay(element, true)}
+              onCanPlay={(event) => attemptAutoplay(event.currentTarget, true)}
             />
             {introReel.caption ? <figcaption>{introReel.caption}</figcaption> : null}
           </figure>
@@ -435,12 +461,15 @@ function ProjectPage() {
                 <figure className={`media-card ${module.isReel ? "is-reel" : ""}`} key={key}>
                   <video
                     src={module.src}
+                    poster={getPosterImage(module.poster, project.coverImage)}
                     controls
                     playsInline
                     preload="metadata"
                     autoPlay={module.isReel}
                     loop={module.isReel}
                     muted={module.isReel}
+                    ref={(element) => attemptAutoplay(element, module.isReel)}
+                    onCanPlay={(event) => attemptAutoplay(event.currentTarget, module.isReel)}
                   />
                   {module.caption ? <figcaption>{module.caption}</figcaption> : null}
                 </figure>

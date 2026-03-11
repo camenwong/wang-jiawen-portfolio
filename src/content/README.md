@@ -30,6 +30,8 @@ Supported `modules` types:
 - `text`: `{ type: "text", paragraphs: ["..."] }`
 - `image`: `{ type: "image", src: "/media/...", alt: "..." }`
 - `video`: `{ type: "video", src: "/media/...", caption: "...", isReel: true }`
+- `video` posters: add `poster: "/media/..."` to show a thumbnail on iOS when autoplay is blocked
+- `video` autoplay: reels attempt autoplay on mobile (muted + playsInline), but device settings can still block it
 - `youtube`: `{ type: "youtube", youtubeId: "...", caption: "..." }`
 - `gallery`: `{ type: "gallery", images: ["/media/...", ...] }`
 
