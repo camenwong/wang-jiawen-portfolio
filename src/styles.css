@@ -358,10 +358,12 @@ a {
 }
 
 .project-tile img,
+.project-tile video,
 .project-placeholder {
   width: 100%;
   aspect-ratio: 16 / 10;
   object-fit: cover;
+  display: block;
 }
 
 .project-placeholder {

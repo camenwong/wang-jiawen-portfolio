@@ -149,6 +149,11 @@ function App() {
   );
 }
 
+const COVER_VIDEO_EXTENSIONS = [".mp4", ".webm", ".ogg"];
+
+const isVideoAsset = (src) =>
+  typeof src === "string" && COVER_VIDEO_EXTENSIONS.some((ext) => src.toLowerCase().endsWith(ext));
+
 function HomePage({ projects }) {
   return (
     <>
@@ -174,7 +179,18 @@ function HomePage({ projects }) {
               <article key={project.slug} className="project-tile">
                 <Link to={`/project/${project.slug}`}>
                   {project.coverImage ? (
-                    <img src={project.coverImage} alt={project.title} loading="lazy" />
+                    isVideoAsset(project.coverImage) ? (
+                      <video
+                        src={project.coverImage}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        preload="metadata"
+                      />
+                    ) : (
+                      <img src={project.coverImage} alt={project.title} loading="lazy" />
+                    )
                   ) : (
                     <div className="project-placeholder" aria-hidden="true" />
                   )}
